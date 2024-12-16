@@ -9,5 +9,5 @@ This directory contains modifications and additional objects for the [GetOut env
 
 2. **Run the training script:**
    ```bash
-   python train.py
+   python train_1.py
    
