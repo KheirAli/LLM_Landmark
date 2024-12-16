@@ -15,11 +15,16 @@ completion = client.chat.completions.create(
   stream=True
 )
 
+response_text = ""
 for chunk in completion:
-  if chunk.choices[0].delta.content is not None:
-    print(chunk.choices[0].delta.content, end="")
+    if chunk.choices[0].delta.get("content"):
+        response_text += chunk.choices[0].delta["content"]
+        print(chunk.choices[0].delta.content, end="")
 
+# Use a regex pattern to identify rules. 
+# This regex looks for lines that start with a rule head like `rule_name(...) :- ... .`
 rule_pattern = re.compile(r"(\w+\(.*?\)\s*:-\s*.*?\.)", re.DOTALL)
+
 
 rules = rule_pattern.findall(response_text)
 
@@ -28,3 +33,39 @@ for r in rules:
     # Clean up whitespaces and newlines
     rule_str = " ".join(r.split())
     print(rule_str)
+
+with open("neural_preds.txt", "r") as f:
+    allowed_preds = {line.strip() for line in f if line.strip()}
+
+# A regex to extract all predicate names from the rule body
+# The rule body is after ':-' and before the final '.'.
+# Each predicate is something like name(args). We capture 'name'.
+predicate_pattern = re.compile(r"([a-zA-Z_]\w*)\s*\(.*?\)")
+
+valid_rules = []
+
+for rule in rules:
+    # Extract the rule body after ':-' and before the final '.'
+    # We'll just isolate everything after ':-' up to '.' and parse predicates from there.
+    body_match = re.search(r":-(.*)\.", rule)
+    if not body_match:
+        # If the rule doesn't have a body in the expected format, skip it
+        continue
+    body = body_match.group(1)
+
+    # Find all predicate names in the body
+    predicates_in_rule = predicate_pattern.findall(body)
+
+    # Check if all predicates are allowed
+    if all(pred in allowed_preds for pred in predicates_in_rule):
+        valid_rules.append(rule)
+    else:
+        # If there's a predicate not in the allowed set, skip or handle accordingly
+        print(f"Skipping rule because it contains disallowed predicates: {rule}")
+
+# Write valid rules to clauses.txt
+with open("clauses.txt", "w") as f:
+    for r in valid_rules:
+        f.write(r + "\n")
+
+print("Rules successfully written to clauses.txt")
