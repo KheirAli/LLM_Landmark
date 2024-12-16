@@ -1,8 +1,3 @@
-###########################################Describtion########################################################
-##### I trid to learn the sub-task policy for the Agent i whcih every i is some sub-task and the agents are NSFR agents with Logic based implementation
-##### I used to train the sub-task choosing policy with a NN wiith the input of V values(NUDGE represented it) and output of sub-task index
-##### The loss function is : if we name choosen sub-tasks = prob_sub then the loss is : sum(prob_sub * log(prob_sub)) + reward* (log(prob_sub_choosen))
-##### The reward is the reward of the choosen Agent and the action of that. The result was not good and the loss was not decreasing 
 
 import csv
 import os
