@@ -18,3 +18,12 @@ for chunk in completion:
   if chunk.choices[0].delta.content is not None:
     print(chunk.choices[0].delta.content, end="")
 
+rule_pattern = re.compile(r"(\w+\(.*?\)\s*:-\s*.*?\.)", re.DOTALL)
+
+rules = rule_pattern.findall(response_text)
+
+print("Extracted Rules:")
+for r in rules:
+    # Clean up whitespaces and newlines
+    rule_str = " ".join(r.split())
+    print(rule_str)
