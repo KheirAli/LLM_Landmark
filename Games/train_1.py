@@ -3,7 +3,6 @@
 ##### I used to train the sub-task choosing policy with a NN wiith the input of V values(NUDGE represented it) and output of sub-task index
 ##### The loss function is : if we name choosen sub-tasks = prob_sub then the loss is : sum(prob_sub * log(prob_sub)) + reward* (log(prob_sub_choosen))
 ##### The reward is the reward of the choosen Agent and the action of that. The result was not good and the loss was not decreasing 
-##### I need to understand why this does not work!
 
 import csv
 import os
