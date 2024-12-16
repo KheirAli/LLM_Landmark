@@ -1,4 +1,5 @@
 from openai import OpenAI
+import re
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
