@@ -2,7 +2,7 @@ from openai import OpenAI
 
 client = OpenAI(
   base_url = "https://integrate.api.nvidia.com/v1",
-  api_key = "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"
+  api_key = "your_API_key"
 )
 state = "closeby(obj1,obj3), closeby(obj1,obj4), closeby(obj2,obj6), closeby(obj3,obj1), closeby(obj3,obj4), closeby(obj4,obj1), closeby(obj4,obj3), closeby(obj6,obj2), on_left(obj1,obj3), on_left(obj2,obj1), on_left(obj2,obj3), on_left(obj2,obj4), on_left(obj2,obj5), on_left(obj2,obj7), on_left(obj2,obj8), on_left(obj4,obj1), on_left(obj4,obj3), on_left(obj5,obj1), on_left(obj5,obj3), on_left(obj5,obj4), on_left(obj5,obj7), on_left(obj5,obj8), on_left(obj6,obj1), on_left(obj6,obj3), on_left(obj6,obj4), on_left(obj6,obj5), on_left(obj6,obj7), on_left(obj6,obj8), on_left(obj7,obj1), on_left(obj7,obj3), on_left(obj7,obj4), on_left(obj8,obj1), on_left(obj8,obj3), on_left(obj8,obj4), on_left(obj8,obj7), reach(obj2,obj6), reach(obj6,obj2), type(obj1,agent), type(obj3,door), type(obj4,enemy), type(obj5,coin), type(obj7,flag), type(obj8,key_red),  "
 completion = client.chat.completions.create(
